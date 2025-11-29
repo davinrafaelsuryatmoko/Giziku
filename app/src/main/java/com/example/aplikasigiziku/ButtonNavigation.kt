@@ -22,7 +22,7 @@ class ButtonNavigation : AppCompatActivity() {
         val navController = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment)!!
             .findNavController()
-
+//findNavControler.navigate()
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.nav_home, R.id.nav_kalkulator, R.id.nav_vitamin, R.id.nav_tips
         ).build()
