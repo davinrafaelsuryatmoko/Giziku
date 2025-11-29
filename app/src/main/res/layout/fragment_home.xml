@@ -1,185 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    tools:context=".HomeFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Background Biru Atas -->
+    <View
+        android:id="@+id/topBackgroundbiru"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@color/biru"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="GIZIKU"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/topBackgroundbiru"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topBackgroundbiru"
+        app:layout_constraintVertical_bias="0.3" />
 
-        <!-- ================= HEADER BIRU ================= -->
-        <RelativeLayout
+    <!-- ScrollView untuk konten yang bisa discroll -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <LinearLayout
+            android:id="@+id/contentCard"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:background="@color/biru"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="90dp"
+            android:background="@drawable/bg_white_round"
+            android:orientation="vertical"
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GIZIKU"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"/>
-
-            <ImageView
-                android:id="@+id/btnProfil"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_profile"
-                app:tint="@android:color/white"/>
-        </RelativeLayout>
-
-        <!-- ================= CARD PUTIH PROFILE & RINGKASAN ================= -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_white_round"
-            android:layout_margin="-20dp"
-            android:padding="18dp"
-            android:elevation="8dp">
-
-            <TextView
-                android:id="@+id/txtHalo"
+                android:id="@+id/tvUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Halo, Dila Alif"
-                android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Selamat Sore"
-                android:textColor="@color/secondaryGrey"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#555555"
+                android:textSize="14sp" />
 
+            <!-- Garis -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="#CCCCCC" />
+
+            <!-- Ringkasan Kalori -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RINGKASAN HARI INI"
-                android:layout_marginTop="18dp"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kalori Masuk : 980 Kkal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status : Cukup" />
+
+            <!-- Garis -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#DDDDDD"
-                android:layout_marginTop="6dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kalori Masuk   : 980 Kkal"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status                 : Cukup"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"/>
-        </LinearLayout>
-
-        <!-- ================= MENU UTAMA ================= -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="22dp">
+                android:layout_marginVertical="12dp"
+                android:background="#CCCCCC" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MENU UTAMA"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="bold" />
 
-            <!-- Item menu -->
+            <!-- Menu Kalkulator -->
             <LinearLayout
-                android:id="@+id/btnKalkulator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_calculator"
-                    app:tint="@color/black"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/icon_kalkulator_hitam" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="Kalkulator Gizi"
-                    android:textSize="14sp"
-                    android:layout_marginStart="12dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Menu Vitamin -->
             <LinearLayout
-                android:id="@+id/btnVitamin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+                android:orientation="horizontal"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_vitamin"
-                    app:tint="@color/black"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/icon_vitamin_hitam" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="Vitamin"
-                    android:textSize="14sp"
-                    android:layout_marginStart="12dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Menu Tips -->
             <LinearLayout
-                android:id="@+id/btnTips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/ic_tips"
-                    app:tint="@color/black"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/icon_tips_hitam" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:text="Tips"
-                    android:textSize="14sp"
-                    android:layout_marginStart="12dp"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="#CCCCCC" />
+
+            <!-- Banner -->
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="18dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gambar_buahhome" />
+
         </LinearLayout>
 
-        <!-- ================= BANNER ================= -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_margin="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/banner_gizi"/>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
