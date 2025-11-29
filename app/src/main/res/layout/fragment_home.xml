@@ -52,6 +52,16 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <ImageButton
+                android:id="@+id/btnProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="Profile"
+                android:padding="6dp"
+                android:src="@drawable/outline_account_circle_24" />
+
             <TextView
                 android:id="@+id/tvUser"
                 android:layout_width="wrap_content"
@@ -66,6 +76,8 @@
                 android:text="Selamat Sore"
                 android:textColor="#555555"
                 android:textSize="14sp" />
+
+
 
             <!-- Garis -->
             <View
@@ -175,13 +187,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginVertical="12dp"
-                android:background="#CCCCCC" />
-
-            <!-- Banner -->
             <ImageView
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
@@ -189,6 +194,14 @@
                 android:layout_marginTop="18dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/gambar_buahhome" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="12dp"
+                android:background="#CCCCCC" />
+
+            <!-- Banner -->
 
         </LinearLayout>
 
