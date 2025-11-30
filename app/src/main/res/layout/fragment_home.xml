@@ -52,32 +52,49 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <ImageButton
-                android:id="@+id/btnProfile"
-                android:layout_width="wrap_content"
+            <!-- Header dengan Profile Icon -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="?selectableItemBackgroundBorderless"
-                android:contentDescription="Profile"
-                android:padding="6dp"
-                android:src="@drawable/outline_account_circle_24" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:id="@+id/tvUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Halo, Dila Alif"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <!-- Teks Sapaan -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Selamat Sore"
-                android:textColor="#555555"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Halo, Dila Alif"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selamat Sore"
+                        android:textColor="#555555"
+                        android:textSize="14sp" />
 
+                </LinearLayout>
+
+                <!-- Icon Profile -->
+                <ImageButton
+                    android:id="@+id/btnProfile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Profile"
+                    android:padding="0dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_profile" />
+
+            </LinearLayout>
 
             <!-- Garis -->
             <View
@@ -120,6 +137,7 @@
 
             <!-- Menu Kalkulator -->
             <LinearLayout
+                android:id="@+id/menuKalkulator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -143,6 +161,7 @@
 
             <!-- Menu Vitamin -->
             <LinearLayout
+                android:id="@+id/menuVitamin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -166,6 +185,7 @@
 
             <!-- Menu Tips -->
             <LinearLayout
+                android:id="@+id/menuTips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -187,14 +207,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="18dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/gambar_buahhome" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -202,6 +214,13 @@
                 android:background="#CCCCCC" />
 
             <!-- Banner -->
+            <ImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="18dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gambar_buahhome" />
 
         </LinearLayout>
 
