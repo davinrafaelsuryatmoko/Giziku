@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -23,19 +22,28 @@ class HomeFragment : Fragment() {
         val btnVitamin = view.findViewById<LinearLayout>(R.id.menuVitamin)
         val btnTips = view.findViewById<LinearLayout>(R.id.menuTips)
 
-        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.nav_bottom)
-
-        // ✅ Langsung ke DESTINATION, bukan ACTION
         btnKalkulator.setOnClickListener {
-            bottomNav.selectedItemId = R.id.nav_kalkulator
+            try {
+                findNavController().navigate(R.id.nav_kalkulator)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         btnVitamin.setOnClickListener {
-            bottomNav.selectedItemId = R.id.nav_vitamin
+            try {
+                findNavController().navigate(R.id.nav_vitamin)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         btnTips.setOnClickListener {
-            bottomNav.selectedItemId = R.id.nav_tips
+            try {
+                findNavController().navigate(R.id.nav_tips)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
         return view
