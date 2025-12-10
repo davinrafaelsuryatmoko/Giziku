@@ -17,9 +17,9 @@ class ProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val btnLogout = view.findViewById<Button>(R.id.btnLogout)
+        val btnKeluar = view.findViewById<Button>(R.id.btnKeluar)
 
-        btnLogout.setOnClickListener {
+        btnKeluar.setOnClickListener {
             showLogoutDialog()
         }
 
@@ -28,8 +28,8 @@ class ProfileFragment : Fragment() {
 
     private fun showLogoutDialog() {
         AlertDialog.Builder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Apakah kamu yakin ingin logout?")
+            .setTitle("Keluar")
+            .setMessage("Apakah kamu yakin ingin keluar?")
             .setPositiveButton("Ya") { _, _ ->
                 logoutUser()
             }
