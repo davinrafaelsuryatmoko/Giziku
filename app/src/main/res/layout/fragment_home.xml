@@ -112,11 +112,13 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvKaloriMasuk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kalori Masuk : 980 Kkal" />
 
             <TextView
+                android:id="@+id/tvStatusRingkasan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Status : Cukup" />

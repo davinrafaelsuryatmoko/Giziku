@@ -7,6 +7,17 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <!-- Button Delete (Lingkaran Minus) -->
+    <ImageView
+        android:id="@+id/btnDeleteItem"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@android:drawable/ic_delete"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Delete" />
+
     <!-- Icon Makanan -->
     <ImageView
         android:id="@+id/ivMakananIcon"
@@ -40,22 +51,5 @@
             android:textSize="12sp" />
 
     </LinearLayout>
-
-    <!-- Button Tambah -->
-    <TextView
-        android:id="@+id/btnTambahItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_tambah_item"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingStart="16dp"
-        android:paddingTop="6dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="6dp"
-        android:text="Tambah"
-        android:textColor="@color/biru"
-        android:textSize="12sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

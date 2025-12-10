@@ -26,4 +26,12 @@
         android:name="com.example.aplikasigiziku.TipsFragment"
         android:label="Tips"
         tools:layout="@layout/fragment_tips" />
+
+    <fragment
+        android:id="@+id/nav_tambah_makanan"
+        android:name="com.example.aplikasigiziku.TambahMakananFragment"
+        android:label="Tambah Makanan"
+        tools:layout="@layout/fragment_tambah_makanan" />
+
+
 </navigation>
