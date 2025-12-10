@@ -30,31 +30,10 @@ class ButtonNavigation : AppCompatActivity() {
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navBottom.setupWithNavController(navController)
 
-        navBottom.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    navController.navigate(R.id.nav_home)
-                    true
-                }
-                R.id.nav_kalkulator -> {
-                    navController.navigate(R.id.nav_kalkulator)
-                    true
-                }
-                R.id.nav_vitamin -> {
-                    navController.navigate(R.id.nav_vitamin)
-                    true
-                }
-                R.id.nav_tips -> {
-                    navController.navigate(R.id.nav_tips)
-                    true
-                }
-                else -> false
-            }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
     }
 }

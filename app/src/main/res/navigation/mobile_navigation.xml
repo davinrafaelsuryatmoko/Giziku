@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/nav_home">
-    <!-- samakan idnya dengan file Button_nav_menu -->
-    <!-- label untul tolbar yang di atas-->
+
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.aplikasigiziku.ProfileFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.aplikasigiziku.HomeFragment"

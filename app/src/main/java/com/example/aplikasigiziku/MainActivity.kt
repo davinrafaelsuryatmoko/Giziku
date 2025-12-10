@@ -22,24 +22,24 @@ class MainActivity : AppCompatActivity() {
 
         // Aksi tombol Masuk
         btnMasuk.setOnClickListener {
-            val username = etUsername.text.toString()
-            val password = etPassword.text.toString()
+            val username = etUsername.text.toString().trim()
+            val password = etPassword.text.toString().trim()
 
             if (username.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Username & Password wajib diisi!", Toast.LENGTH_SHORT).show()
-            } else {
-                // Kalau mau pakai validasi sederhana dulu, ini aman:
-                val intent = Intent(this, ButtonNavigation::class.java)
-                startActivity(intent)
-                finish()
+                return@setOnClickListener
             }
+
+            // Kirim username ke halaman berikutnya
+            val intent = Intent(this, ButtonNavigation::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+            finish()
         }
 
         // Aksi klik Daftar
         txtDaftar.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
-
     }
 }
