@@ -32,7 +32,7 @@ class MakananAdapter(
         holder.tvNama.text = makanan.nama
         holder.tvKalori.text = "${makanan.kalori.toInt()} Kkal"
 
-        // Load foto jika ada
+
         if (makanan.fotoPath != null) {
             val bitmap = BitmapFactory.decodeFile(makanan.fotoPath)
             holder.ivIcon.setImageBitmap(bitmap)
@@ -40,7 +40,7 @@ class MakananAdapter(
             holder.ivIcon.setImageResource(R.drawable.nasi_item)
         }
 
-        // Button delete
+
         holder.btnDelete.setOnClickListener {
             onDeleteClick(makanan)
         }

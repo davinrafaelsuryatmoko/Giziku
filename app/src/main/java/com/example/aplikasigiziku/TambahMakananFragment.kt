@@ -23,7 +23,6 @@ class TambahMakananFragment : Fragment() {
     private lateinit var ivUploadIcon: ImageView
     private var selectedImagePath: String? = null
 
-    // Launcher untuk pick image dari galeri
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -41,7 +40,7 @@ class TambahMakananFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_tambah_makanan, container, false)
 
-        // Ambil reference view
+
         val etNama = view.findViewById<EditText>(R.id.etNamaMakanan)
         val spinnerKategori = view.findViewById<Spinner>(R.id.spinnerKategori)
         val etJumlah = view.findViewById<EditText>(R.id.etJumlah)
@@ -61,12 +60,12 @@ class TambahMakananFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerKategori.adapter = adapter
 
-        // Button Upload Foto
+
         btnUploadFoto.setOnClickListener {
             openGallery()
         }
 
-        // Button Simpan
+
         btnSimpan.setOnClickListener {
             val nama = etNama.text.toString()
             val kategori = spinnerKategori.selectedItem.toString()
@@ -76,13 +75,13 @@ class TambahMakananFragment : Fragment() {
             val lemak = etLemak.text.toString().toDoubleOrNull() ?: 0.0
             val karbohidrat = etKarbohidrat.text.toString().toDoubleOrNull() ?: 0.0
 
-            // Validasi
+
             if (nama.isEmpty()) {
                 Toast.makeText(requireContext(), "Nama makanan harus diisi!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Buat object Makanan
+
             val makanan = Makanan(
                 nama = nama,
                 kategori = kategori,
@@ -94,13 +93,10 @@ class TambahMakananFragment : Fragment() {
                 fotoPath = selectedImagePath
             )
 
-            // Simpan ke MakananManager
             MakananManager.tambahMakanan(makanan)
 
-            // Toast sukses
             Toast.makeText(requireContext(), "Makanan berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
 
-            // Kembali ke Kalkulator Gizi
             findNavController().navigateUp()
         }
 
@@ -114,21 +110,18 @@ class TambahMakananFragment : Fragment() {
 
     private fun handleImageSelection(uri: Uri) {
         try {
-            // Simpan gambar ke internal storage
+
             val inputStream = requireContext().contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
-            // Compress dan simpan
             val filename = "makanan_${System.currentTimeMillis()}.jpg"
             val file = File(requireContext().filesDir, filename)
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
             outputStream.close()
 
-            // Simpan path
             selectedImagePath = file.absolutePath
 
-            // Tampilkan preview
             ivPreviewFoto.setImageBitmap(bitmap)
             ivPreviewFoto.visibility = View.VISIBLE
             ivUploadIcon.visibility = View.GONE

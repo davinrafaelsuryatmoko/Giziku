@@ -14,13 +14,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Ambil komponen dari layout
+
         val btnMasuk = findViewById<Button>(R.id.btnMasuk)
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val txtDaftar = findViewById<TextView>(R.id.txtDaftar)
 
-        // Aksi tombol Masuk
+
         btnMasuk.setOnClickListener {
             val username = etUsername.text.toString().trim()
             val password = etPassword.text.toString().trim()
@@ -30,14 +30,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Kirim username ke halaman berikutnya
+
             val intent = Intent(this, ButtonNavigation::class.java)
             intent.putExtra("username", username)
             startActivity(intent)
             finish()
         }
 
-        // Aksi klik Daftar
+
         txtDaftar.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }

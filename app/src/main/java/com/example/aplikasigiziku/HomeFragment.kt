@@ -15,7 +15,7 @@ class HomeFragment : Fragment() {
     private lateinit var tvKaloriMasuk: TextView
     private lateinit var tvStatusRingkasan: TextView
     private lateinit var tvUser: TextView
-    private lateinit var btnProfile: ImageButton   // Tambahan
+    private lateinit var btnProfile: ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // Ambil komponen
+
         tvKaloriMasuk = view.findViewById(R.id.tvKaloriMasuk)
         tvStatusRingkasan = view.findViewById(R.id.tvStatusRingkasan)
         tvUser = view.findViewById(R.id.tvUser)
@@ -34,11 +34,11 @@ class HomeFragment : Fragment() {
         val btnVitamin = view.findViewById<LinearLayout>(R.id.menuVitamin)
         val btnTips = view.findViewById<LinearLayout>(R.id.menuTips)
 
-        // --- Ambil username dari MainActivity ---
+
         val username = activity?.intent?.getStringExtra("username") ?: "Pengguna"
         tvUser.text = "Halo, $username"
 
-        // Navigasi menu
+
         btnKalkulator.setOnClickListener {
             findNavController().navigate(R.id.nav_kalkulator)
         }
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.nav_tips)
         }
 
-        // --- NAVIGASI KE HALAMAN PROFIL ---
+
         btnProfile.setOnClickListener {
             findNavController().navigate(R.id.nav_profile)
         }
