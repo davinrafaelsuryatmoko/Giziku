@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
+            // Kirim username ke halaman berikutnya
             val intent = Intent(this, ButtonNavigation::class.java)
             intent.putExtra("username", username)
             startActivity(intent)
@@ -38,8 +38,5 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        txtDaftar.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
     }
 }

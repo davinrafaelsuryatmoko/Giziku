@@ -1,14 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    android:padding="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Judul -->
+        <TextView
+            android:id="@+id/txtProfilTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROFIL"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/biru"
+            android:layout_gravity="center"
+            android:paddingBottom="20dp" />
+
+        <!-- Foto Profil -->
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_profile"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_circle_light"
+            android:scaleType="centerCrop"
+            android:padding="20dp"
+            android:contentDescription="Foto Profil" />
+
+        <!-- Nama -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama"
+            android:textSize="14sp"
+            android:textColor="@color/hitam"
+            android:paddingTop="20dp" />
+
+        <TextView
+            android:id="@+id/txtNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Suqya"
+            android:textSize="18sp"
+            android:textColor="@color/biru_tua"
+            android:paddingBottom="12dp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="14sp"
+            android:textColor="@color/hitam" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="email@gmail.com"
+            android:textSize="18sp"
+            android:textColor="@color/biru_tua"
+            android:paddingBottom="12dp" />
+
+        <!-- Tombol Logout -->
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:backgroundTint="@color/biru"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="30dp"
+            android:padding="14dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -5,4 +5,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="biru">#0094FF</color>
     <color name="putih">#FFFFFF</color>
+    <color name="hitam">#000000</color>
+    <color name="biru_tua">#0D47A1</color>
+    <color name="abu">#8A8A8A</color>
 </resources>
