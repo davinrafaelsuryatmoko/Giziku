@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- STATE: tombol sudah ditekan (selesai) -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#008CFF"/> <!-- biru solid -->
+            <corners android:radius="25dp"/>
+            <stroke android:width="2dp" android:color="#008CFF"/>
+        </shape>
+    </item>
+
+    <!-- STATE: tombol normal -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+            <corners android:radius="25dp"/>
+            <stroke android:width="2dp" android:color="#008CFF"/>
+        </shape>
+    </item>
+
+</selector>

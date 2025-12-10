@@ -31,14 +31,14 @@ class RegisterActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Registrasi berhasil, silakan login", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this, WelcomeActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
 
         txtMasuk.setOnClickListener {
-            val intent = Intent(this, WelcomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
