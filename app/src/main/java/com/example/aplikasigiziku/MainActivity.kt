@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         val btnMasuk = findViewById<Button>(R.id.btnMasuk)
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val etPassword = findViewById<EditText>(R.id.etPassword)
-        val txtDaftar = findViewById<TextView>(R.id.txtDaftar)
 
 
         btnMasuk.setOnClickListener {

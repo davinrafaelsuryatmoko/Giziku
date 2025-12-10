@@ -38,7 +38,7 @@
         android:layout_marginStart="26dp"
         android:layout_marginEnd="26dp"
         android:layout_marginTop="85dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         app:cardCornerRadius="32dp"
         app:cardElevation="6dp"
         app:layout_constraintTop_toTopOf="parent"
