@@ -71,8 +71,8 @@
                 <Button
                     android:id="@+id/btnTambahMakanan"
                     android:layout_width="wrap_content"
-                    android:layout_height="34dp"
-                    android:background="@drawable/bg_button_add"
+                    android:layout_height="38dp"
+                    android:backgroundTint="@color/biru"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:text="+ Makanan"
@@ -81,10 +81,6 @@
                     android:textAllCaps="false"  />
 
             </LinearLayout>
-
-
-
-
 
             <!-- Garis -->
             <View
@@ -180,8 +176,8 @@
 
             </LinearLayout>
 
-            <!-- Lemak -->
             <LinearLayout
+                android:id="@+id/lemak"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -286,13 +282,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_button_riwayat"
+                android:backgroundTint="@color/biru"
                 android:paddingStart="24dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="24dp"
                 android:paddingBottom="10dp"
                 android:text="Cek Riwayat"
-                android:textColor="@color/biru"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

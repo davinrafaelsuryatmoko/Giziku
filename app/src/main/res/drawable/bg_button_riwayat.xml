@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <!-- Background biru muda untuk button Cek Riwayat -->
-    <solid android:color="#E3F2FD"/>
+    <solid android:color="#2196F3"/>
 
     <!-- Rounded corners -->
     <corners android:radius="20dp" />

@@ -39,11 +39,11 @@ class ProfileFragment : Fragment() {
 
     private fun logoutUser() {
 
-        // Hapus sesi login jika kamu menyimpan username atau data lain
-        val prefs = requireActivity().getSharedPreferences("user_prefs", 0)
-        prefs.edit().clear().apply()
+        // menghapus sesi login jika menyimpan username dan data lainnya
+//        val prefs = requireActivity().getSharedPreferences("user_prefs", 0)
+//        prefs.edit().clear().apply()
 
-        // Arahkan ke halaman login (MainActivity)
+        // mengarahkan pada login/ mainactivity
         val intent = Intent(requireContext(), MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 

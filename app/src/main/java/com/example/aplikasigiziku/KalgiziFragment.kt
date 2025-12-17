@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 
 class KalgiziFragment : Fragment() {
 
-    private lateinit var rvMakanan: RecyclerView
-    private lateinit var adapter: MakananAdapter
+    private lateinit var rvMakanan: RecyclerView //recycle view untuk tampilan list di
+    private lateinit var adapter: MakananAdapter//adapter untuk mengatur tampilan
 
     private lateinit var tvTotalKalori: TextView
     private lateinit var tvProtein: TextView
@@ -38,7 +38,7 @@ class KalgiziFragment : Fragment() {
         tvKarbohidrat = view.findViewById(R.id.tvKarbohidrat)
         tvStatus = view.findViewById(R.id.tvStatus)
 
-        setupRecyclerView()
+        setupRecyclerView()//mengambil data dari makanan manager
 
         btnTambahMakanan.setOnClickListener {
             findNavController().navigate(R.id.nav_tambah_makanan)
@@ -50,7 +50,7 @@ class KalgiziFragment : Fragment() {
 
         return view
     }
-
+    // update recyecle view dan total gizi
     override fun onResume() {
         super.onResume()
         updateData()
@@ -58,10 +58,10 @@ class KalgiziFragment : Fragment() {
 
     private fun setupRecyclerView() {
         adapter = MakananAdapter(
-            listMakanan = MakananManager.getAllMakanan().toMutableList(),
+            listMakanan = MakananManager.getAllMakanan().toMutableList(),// ambil data dari manager
             onDeleteClick = { makanan ->
                 MakananManager.hapusMakanan(makanan)
-                updateData()
+                updateData()// data hilang dari manager setelah di delet
             }
         )
 
@@ -71,7 +71,7 @@ class KalgiziFragment : Fragment() {
 
     private fun updateData() {
         adapter.updateData(MakananManager.getAllMakanan())
-
+//membuat variabel yang digunakan untuk menghitung total gizi dari makanan manager
         val totalKalori = MakananManager.getTotalKalori()
         val totalProtein = MakananManager.getTotalProtein()
         val totalLemak = MakananManager.getTotalLemak()

@@ -25,8 +25,8 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
 
-        tvKaloriMasuk = view.findViewById(R.id.tvKaloriMasuk)
-        tvStatusRingkasan = view.findViewById(R.id.tvStatusRingkasan)
+        tvKaloriMasuk = view.findViewById(R.id.tvKaloriMasuk) //kalori masuk
+        tvStatusRingkasan = view.findViewById(R.id.tvStatusRingkasan) //status
         tvUser = view.findViewById(R.id.tvUser)
         btnProfile = view.findViewById(R.id.btnProfile)   // Tambahan
 
@@ -63,19 +63,19 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        updateRingkasan()
+        updateRingkasan() //update data ringkasan denagn data terbaru dari makananmanager
     }
 
-    private fun updateRingkasan() {
-        val totalKalori = MakananManager.getTotalKalori().toInt()
+    private fun updateRingkasan() { //update tampilan ringkasan kalori dan status
+        val totalKalori = MakananManager.getTotalKalori().toInt() //ambil total kalori
 
         val status = when {
-            totalKalori < 1000 -> "Kurang"
+            totalKalori < 1000 -> "Kurang" //tentukan status kurang /cukup/ lebih
             totalKalori in 1000..2000 -> "Cukup"
             else -> "Berlebih"
         }
 
-        tvKaloriMasuk.text = "Kalori Masuk : $totalKalori Kkal"
+        tvKaloriMasuk.text = "Kalori Masuk : $totalKalori Kkal" // update teks view
         tvStatusRingkasan.text = "Status : $status"
     }
 }
