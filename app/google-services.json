@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1033159993387",
+    "project_id": "nutriapp-63d73",
+    "storage_bucket": "nutriapp-63d73.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033159993387:android:b65da93d46f38704ac626e",
+        "android_client_info": {
+          "package_name": "com.example.aplikasigiziku"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU9V0IL8jdVCUb9COQBYqazwQye1oWVO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033159993387:android:18b9045bed4e1423ac626e",
+        "android_client_info": {
+          "package_name": "com.example.latihanfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU9V0IL8jdVCUb9COQBYqazwQye1oWVO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
