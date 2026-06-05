@@ -1,33 +1,18 @@
 package com.example.aplikasigiziku
 
+// Update file MakananManager.kt yang sudah ada
+// Tambahkan fungsi setTotalKalori
 object MakananManager {
-    private val listMakanan = mutableListOf<Makanan>()
 
-    fun tambahMakanan(makanan: Makanan) {
-        listMakanan.add(makanan)
+    private var totalKalori: Double = 0.0
+
+    // Fungsi baru - dipanggil dari KalgiziFragment
+    fun setTotalKalori(kalori: Double) {
+        totalKalori = kalori
     }
 
-    fun hapusMakanan(makanan: Makanan) {
-        listMakanan.remove(makanan)
-    }
-
-    fun getAllMakanan(): List<Makanan> {
-        return listMakanan.toList()
-    }
-
+    // Fungsi lama - tetap ada
     fun getTotalKalori(): Double {
-        return listMakanan.sumOf { it.kalori }
-    }
-
-    fun getTotalProtein(): Double {
-        return listMakanan.sumOf { it.protein }
-    }
-
-    fun getTotalLemak(): Double {
-        return listMakanan.sumOf { it.lemak }
-    }
-
-    fun getTotalKarbohidrat(): Double {
-        return listMakanan.sumOf { it.karbohidrat }
+        return totalKalori
     }
 }

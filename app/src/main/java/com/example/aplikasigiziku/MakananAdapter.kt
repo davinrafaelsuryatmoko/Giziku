@@ -1,56 +1,35 @@
 package com.example.aplikasigiziku
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import android.graphics.BitmapFactory
 
 class MakananAdapter(
-    private val listMakanan: MutableList<Makanan>,
-    private val onDeleteClick: (Makanan) -> Unit
-) : RecyclerView.Adapter<MakananAdapter.ViewHolder>() {
+    private var list: List<MakananEntity>,
+    private val onHapus: (MakananEntity) -> Unit
+) : RecyclerView.Adapter<MakananAdapter.VH>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val btnDelete: ImageView = view.findViewById(R.id.btnDeleteItem)
-        val ivIcon: ImageView = view.findViewById(R.id.ivMakananIcon)
-        val tvNama: TextView = view.findViewById(R.id.tvNamaMakanan)
-        val tvKalori: TextView = view.findViewById(R.id.tvKaloriMakanan)
+    inner class VH(view: View) : RecyclerView.ViewHolder(view) {
+        val tvNama   : TextView  = view.findViewById(R.id.tvNamaMakanan)
+        val tvKalori : TextView  = view.findViewById(R.id.tvKaloriMakanan)
+        val btnHapus : ImageView = view.findViewById(R.id.btnDeleteItem)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_makanan, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        VH(LayoutInflater.from(parent.context).inflate(R.layout.item_makanan, parent, false))
+
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val item = list[position]
+        holder.tvNama.text   = item.nama
+        holder.tvKalori.text = "${item.kalori.toInt()} Kkal"
+        holder.btnHapus.setOnClickListener { onHapus(item) }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val makanan = listMakanan[position]
-
-        holder.tvNama.text = makanan.nama
-        holder.tvKalori.text = "${makanan.kalori.toInt()} Kkal"
-
-
-        if (makanan.fotoPath != null) {
-            val bitmap = BitmapFactory.decodeFile(makanan.fotoPath)
-            holder.ivIcon.setImageBitmap(bitmap)
-        } else {
-            holder.ivIcon.setImageResource(R.drawable.nasi_item)
-        }
-
-
-        holder.btnDelete.setOnClickListener {
-            onDeleteClick(makanan)
-        }
-    }
-
-    override fun getItemCount() = listMakanan.size
-
-    fun updateData(newList: List<Makanan>) {
-        listMakanan.clear()
-        listMakanan.addAll(newList)
+    fun updateData(newList: List<MakananEntity>) {
+        list = newList
         notifyDataSetChanged()
     }
 }

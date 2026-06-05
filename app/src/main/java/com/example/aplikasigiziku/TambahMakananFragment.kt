@@ -1,134 +1,79 @@
 package com.example.aplikasigiziku
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import java.io.File
-import java.io.FileOutputStream
+import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TambahMakananFragment : Fragment() {
 
-    private lateinit var ivPreviewFoto: ImageView
-    private lateinit var ivUploadIcon: ImageView
-    private var selectedImagePath: String? = null
+    lateinit var viewModel: KalkulatorViewModel
+    var fotoUri: Uri? = null
 
-    private val pickImageLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val uri = result.data?.data
-            uri?.let {
-                handleImageSelection(it)
-            }
-        }
-    }
+    // Launcher pilih foto
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fragment_tambah_makanan, container, false)
 
-
-        val etNama = view.findViewById<EditText>(R.id.etNamaMakanan)
-        val spinnerKategori = view.findViewById<Spinner>(R.id.spinnerKategori)
-        val etJumlah = view.findViewById<EditText>(R.id.etJumlah)
-        val etKalori = view.findViewById<EditText>(R.id.etKalori)
-        val etProtein = view.findViewById<EditText>(R.id.etProtein)
-        val etLemak = view.findViewById<EditText>(R.id.etLemak)
-        val etKarbohidrat = view.findViewById<EditText>(R.id.etKarbohidrat)
-        val btnSimpan = view.findViewById<Button>(R.id.btnSimpan)
-        val btnUploadFoto = view.findViewById<LinearLayout>(R.id.btnUploadFoto)
-
-        ivPreviewFoto = view.findViewById(R.id.ivPreviewFoto)
-        ivUploadIcon = view.findViewById(R.id.ivUploadIcon)
+        val uid  = FirebaseAuth.getInstance().currentUser!!.uid
+        val hari = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        viewModel = ViewModelProvider(requireActivity()).get(KalkulatorViewModel::class.java)
 
         // Setup Spinner Kategori
-        val kategoriList = arrayOf("Nasi", "Lauk", "Sayur", "Buah", "Minuman","Makanan", "Lainnya")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, kategoriList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerKategori.adapter = adapter
+        val kategoriList = listOf("Makanan Pokok", "Lauk Pauk", "Sayuran", "Buah", "Minuman", "Snack")
+        val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, kategoriList)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.findViewById<Spinner>(R.id.spinnerKategori).adapter = spinnerAdapter
+
+        // Tombol upload foto — ID dari XML GizuKu
 
 
-        btnUploadFoto.setOnClickListener {
-            openGallery()
-        }
-
-
-        btnSimpan.setOnClickListener {
-            val nama = etNama.text.toString()
-            val kategori = spinnerKategori.selectedItem.toString()
-            val jumlah = etJumlah.text.toString().toIntOrNull() ?: 1
-            val kalori = etKalori.text.toString().toDoubleOrNull() ?: 0.0
-            val protein = etProtein.text.toString().toDoubleOrNull() ?: 0.0
-            val lemak = etLemak.text.toString().toDoubleOrNull() ?: 0.0
-            val karbohidrat = etKarbohidrat.text.toString().toDoubleOrNull() ?: 0.0
-
+        // Tombol Simpan — ID dari XML GizuKu
+        view.findViewById<Button>(R.id.btnSimpan).setOnClickListener {
+            val nama     = view.findViewById<EditText>(R.id.etNamaMakanan).text.toString().trim()
+            val kategori = view.findViewById<Spinner>(R.id.spinnerKategori).selectedItem.toString()
+            val jumlah   = view.findViewById<EditText>(R.id.etJumlah).text.toString().toIntOrNull() ?: 1
+            val kalori   = view.findViewById<EditText>(R.id.etKalori).text.toString().toDoubleOrNull() ?: 0.0
+            val protein  = view.findViewById<EditText>(R.id.etProtein).text.toString().toDoubleOrNull() ?: 0.0
+            val lemak    = view.findViewById<EditText>(R.id.etLemak).text.toString().toDoubleOrNull() ?: 0.0
+            val karbo    = view.findViewById<EditText>(R.id.etKarbohidrat).text.toString().toDoubleOrNull() ?: 0.0
 
             if (nama.isEmpty()) {
-                Toast.makeText(requireContext(), "Nama makanan harus diisi!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Nama makanan wajib diisi!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-
-            val makanan = Makanan(
-                nama = nama,
-                kategori = kategori,
-                jumlah = jumlah,
-                kalori = kalori,
-                protein = protein,
-                lemak = lemak,
-                karbohidrat = karbohidrat,
-                fotoPath = selectedImagePath
+            val makanan = MakananEntity(
+                id          = UUID.randomUUID().toString(),
+                uid         = uid,
+                nama        = nama,
+                kategori    = kategori,
+                jumlah      = jumlah,
+                kalori      = kalori,
+                protein     = protein,
+                lemak       = lemak,
+                karbohidrat = karbo,
+                tanggal     = hari
             )
 
-            MakananManager.tambahMakanan(makanan)
-
-            Toast.makeText(requireContext(), "Makanan berhasil ditambahkan!", Toast.LENGTH_SHORT).show()
-
-            findNavController().navigateUp()
+            viewModel.simpan(makanan)
+            Toast.makeText(requireContext(), "✅ $nama berhasil disimpan!", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp() // kembali ke KalgiziFragment
         }
 
         return view
-    }
-
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        pickImageLauncher.launch(intent)
-    }
-
-    private fun handleImageSelection(uri: Uri) {
-        try {
-
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-
-            val filename = "makanan_${System.currentTimeMillis()}.jpg"
-            val file = File(requireContext().filesDir, filename)
-            val outputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
-            outputStream.close()
-
-            selectedImagePath = file.absolutePath
-
-            ivPreviewFoto.setImageBitmap(bitmap)
-            ivPreviewFoto.visibility = View.VISIBLE
-            ivUploadIcon.visibility = View.GONE
-
-            Toast.makeText(requireContext(), "Foto berhasil dipilih!", Toast.LENGTH_SHORT).show()
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Gagal memuat foto: ${e.message}", Toast.LENGTH_SHORT).show()
-        }
     }
 }

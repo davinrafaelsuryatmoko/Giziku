@@ -7,85 +7,66 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 
 class KalgiziFragment : Fragment() {
 
-    private lateinit var rvMakanan: RecyclerView //recycle view untuk tampilan list di
-    private lateinit var adapter: MakananAdapter//adapter untuk mengatur tampilan
-
-    private lateinit var tvTotalKalori: TextView
-    private lateinit var tvProtein: TextView
-    private lateinit var tvLemak: TextView
-    private lateinit var tvKarbohidrat: TextView
-    private lateinit var tvStatus: TextView
+    lateinit var viewModel: KalkulatorViewModel
+    lateinit var adapter: MakananAdapter
+    lateinit var uid: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = inflater.inflate(R.layout.fragment_kal_gizi, container, false)
 
-        val btnTambahMakanan = view.findViewById<Button>(R.id.btnTambahMakanan)
-        val btnCekRiwayat = view.findViewById<Button>(R.id.btnCekRiwayat)
-        rvMakanan = view.findViewById(R.id.rvMakanan)
+        uid       = FirebaseAuth.getInstance().currentUser!!.uid
+        viewModel = ViewModelProvider(requireActivity()).get(KalkulatorViewModel::class.java)
 
-        tvTotalKalori = view.findViewById(R.id.tvTotalKalori)
-        tvProtein = view.findViewById(R.id.tvProtein)
-        tvLemak = view.findViewById(R.id.tvLemak)
-        tvKarbohidrat = view.findViewById(R.id.tvKarbohidrat)
-        tvStatus = view.findViewById(R.id.tvStatus)
+        // Sync semua data dari Firebase ke Room
+        viewModel.syncMakananDariFirestore(uid)
 
-        setupRecyclerView()//mengambil data dari makanan manager
+        // Setup RecyclerView
+        adapter = MakananAdapter(emptyList()) { makanan ->
+            viewModel.hapus(makanan)
+        }
 
-        btnTambahMakanan.setOnClickListener {
+        val rv = view.findViewById<RecyclerView>(R.id.rvMakanan)
+        rv.layoutManager = LinearLayoutManager(requireContext())
+        rv.adapter = adapter
+
+        // Pantau semua data makanan
+        viewModel.getMakanan(uid).observe(viewLifecycleOwner) { list ->
+            adapter.updateData(list)
+
+            val kalori  = list.sumOf { it.kalori }
+            val protein = list.sumOf { it.protein }
+            val lemak   = list.sumOf { it.lemak }
+            val karbo   = list.sumOf { it.karbohidrat }
+
+            view.findViewById<TextView>(R.id.tvTotalKalori).text = "${kalori.toInt()} Kkal"
+            view.findViewById<TextView>(R.id.tvProtein).text     = "${protein.toInt()} g"
+            view.findViewById<TextView>(R.id.tvLemak).text       = "${lemak.toInt()} g"
+            view.findViewById<TextView>(R.id.tvKarbohidrat).text = "${karbo.toInt()} g"
+
+            val status = if (kalori < 1200) "Kurang"
+            else if (kalori <= 2200) "Sesuai Kebutuhan"
+            else "Berlebih"
+            view.findViewById<TextView>(R.id.tvStatus).text = status
+
+            MakananManager.setTotalKalori(kalori)
+        }
+
+        // Tombol + Makanan
+        view.findViewById<Button>(R.id.btnTambahMakanan).setOnClickListener {
             findNavController().navigate(R.id.nav_tambah_makanan)
         }
 
-        btnCekRiwayat.setOnClickListener {
-            findNavController().navigate(R.id.nav_home)
-        }
-
         return view
-    }
-    // update recyecle view dan total gizi
-    override fun onResume() {
-        super.onResume()
-        updateData()
-    }
-
-    private fun setupRecyclerView() {
-        adapter = MakananAdapter(
-            listMakanan = MakananManager.getAllMakanan().toMutableList(),// ambil data dari manager
-            onDeleteClick = { makanan ->
-                MakananManager.hapusMakanan(makanan)
-                updateData()// data hilang dari manager setelah di delet
-            }
-        )
-
-        rvMakanan.layoutManager = LinearLayoutManager(requireContext())
-        rvMakanan.adapter = adapter
-    }
-
-    private fun updateData() {
-        adapter.updateData(MakananManager.getAllMakanan())
-//membuat variabel yang digunakan untuk menghitung total gizi dari makanan manager
-        val totalKalori = MakananManager.getTotalKalori()
-        val totalProtein = MakananManager.getTotalProtein()
-        val totalLemak = MakananManager.getTotalLemak()
-        val totalKarbohidrat = MakananManager.getTotalKarbohidrat()
-
-        tvTotalKalori.text = "${totalKalori.toInt()} Kkal"
-        tvProtein.text = "${totalProtein.toInt()} g"
-        tvLemak.text = "${totalLemak.toInt()} g"
-        tvKarbohidrat.text = "${totalKarbohidrat.toInt()} g"
-
-        tvStatus.text = when {
-            totalKalori < 1000 -> "Kurang"
-            totalKalori in 1000.0..2000.0 -> "Sesuai Kebutuhan"
-            else -> "Berlebih"
-        }
     }
 }
