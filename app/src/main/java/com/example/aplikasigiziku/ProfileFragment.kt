@@ -20,12 +20,12 @@ class ProfilFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
 
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return view
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return view // uid untuk mengambil dt
 
         // Ambil data dari Firestore
-        FirebaseFirestore.getInstance().collection("users").document(uid).get()
+        FirebaseFirestore.getInstance().collection("users").document(uid).get() // untuk ambil data
             .addOnSuccessListener { doc ->
-                view.findViewById<TextView>(R.id.tvNamaProfil).text  = doc.getString("nama")  ?: "-"
+                view.findViewById<TextView>(R.id.tvNamaProfil).text  = doc.getString("nama")  ?: "-" // menampilkan data deng teks view
                 view.findViewById<TextView>(R.id.tvEmailProfil).text = doc.getString("email") ?: "-"
                 view.findViewById<TextView>(R.id.tvPhoneProfil).text = doc.getString("phone") ?: "-"
             }

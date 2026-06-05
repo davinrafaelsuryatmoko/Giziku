@@ -18,53 +18,53 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
 
-    private lateinit var tvKaloriMasuk: TextView
+    private lateinit var tvKaloriMasuk: TextView //menampilka teks view
     private lateinit var tvStatusRingkasan: TextView
-    lateinit var viewModel: KomunitasViewModel
-    lateinit var adapter: PostAdapter
+    lateinit var viewModel: KomunitasViewModel // mengelola data komunnitas
+    lateinit var adapter: PostAdapter // menampilkan postingan ke rycycleview
 
-    override fun onCreateView(
+    override fun onCreateView( // tampilan homefragent
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false) // mengubah file xml menjadi tampilan yang bisa ditampilkan dilayar
 
         tvKaloriMasuk     = view.findViewById(R.id.tvKaloriMasuk)
         tvStatusRingkasan = view.findViewById(R.id.tvStatusRingkasan)
-        viewModel = ViewModelProvider(requireActivity()).get(KomunitasViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(KomunitasViewModel::class.java) // menghu bungkan homefragment denag komunitas view model
 
         // Ambil nama user dari Firebase → tampilkan di tvUser
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val uid = FirebaseAuth.getInstance().currentUser?.uid // mengambil data uid
         if (uid != null) {
-            FirebaseFirestore.getInstance().collection("users").document(uid).get()
+            FirebaseFirestore.getInstance().collection("users").document(uid).get() // mengambil data pengguna
                 .addOnSuccessListener { doc ->
-                    val nama = doc.getString("nama") ?: "Pengguna"
-                    view.findViewById<TextView>(R.id.tvUser).text = "Halo, $nama"
+                    val nama = doc.getString("nama") ?: "Pengguna" // menampilkan data pengguna
+                    view.findViewById<TextView>(R.id.tvUser).text = "Halo, $nama"  //ditampilkan ke tesk view
                 }
         }
 
         // Setup RecyclerView komunitas langsung di Home
-        adapter = PostAdapter(
+        adapter = PostAdapter( //
             emptyList(),
             onLike = { post ->
-                if (uid != null) viewModel.toggleLike(post, uid)
+                if (uid != null) viewModel.toggleLike(post, uid) // menambah menghapus like
             },
             onKomentar = { post ->
                 val bundle = Bundle()
                 bundle.putString("postId", post.id)
                 bundle.putString("postIsi", post.isi)
-                findNavController().navigate(R.id.nav_komentar, bundle)
+                findNavController().navigate(R.id.nav_komentar, bundle) // membuyka halaman komentar
             }
         )
 
         val rvKomunitas = view.findViewById<RecyclerView>(R.id.rvKomunitas)
         rvKomunitas.layoutManager = LinearLayoutManager(requireContext())
-        rvKomunitas.adapter = adapter
+        rvKomunitas.adapter = adapter // untuk mengkonfigurasikan rycycle view
         rvKomunitas.isNestedScrollingEnabled = false
 
         // Sync dan tampilkan postingan
         viewModel.syncPosts()
-        viewModel.getAllPosts().observe(viewLifecycleOwner) { adapter.updateData(it) }
+        viewModel.getAllPosts().observe(viewLifecycleOwner) { adapter.updateData(it) } // memperbarui tampilan tanoa merefresh
 
         // Navigasi menu
         view.findViewById<LinearLayout>(R.id.menuKalkulator).setOnClickListener {
