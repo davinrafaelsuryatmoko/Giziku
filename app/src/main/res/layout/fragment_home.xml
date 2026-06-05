@@ -239,13 +239,6 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="8dp" />
 
-            <!-- RecyclerView postingan komunitas langsung di Home -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvKomunitas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false" />
-
             <!-- Tombol Buat Postingan -->
             <Button
                 android:id="@+id/btnBuatPost"
@@ -256,6 +249,15 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:background="@drawable/bg_button_add" />
+
+            <!-- RecyclerView postingan komunitas langsung di Home -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvKomunitas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+
 
         </LinearLayout>
 
