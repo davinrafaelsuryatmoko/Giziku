@@ -1,52 +1,43 @@
 package com.example.aplikasigiziku
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-class ProfileFragment : Fragment() {
+class ProfilFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_profil, container, false)
 
-        val btnKeluar = view.findViewById<Button>(R.id.btnKeluar)
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return view
 
-        btnKeluar.setOnClickListener {
-            showLogoutDialog()
+        // Ambil data dari Firestore
+        FirebaseFirestore.getInstance().collection("users").document(uid).get()
+            .addOnSuccessListener { doc ->
+                view.findViewById<TextView>(R.id.tvNamaProfil).text  = doc.getString("nama")  ?: "-"
+                view.findViewById<TextView>(R.id.tvEmailProfil).text = doc.getString("email") ?: "-"
+                view.findViewById<TextView>(R.id.tvPhoneProfil).text = doc.getString("phone") ?: "-"
+            }
+
+        // Tombol Keluar
+        view.findViewById<Button>(R.id.btnKeluar).setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(requireContext(), "Sampai jumpa!", Toast.LENGTH_SHORT).show()
+            // Kembali ke Login dan bersihkan back stack
+            findNavController().navigate(R.id.nav_login)
         }
 
         return view
-    }
-
-    private fun showLogoutDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Keluar")
-            .setMessage("Apakah kamu yakin ingin keluar?")
-            .setPositiveButton("Ya") { _, _ ->
-                logoutUser()
-            }
-            .setNegativeButton("Batal", null)
-            .show()
-    }
-
-    private fun logoutUser() {
-
-        // menghapus sesi login jika menyimpan username dan data lainnya
-//        val prefs = requireActivity().getSharedPreferences("user_prefs", 0)
-//        prefs.edit().clear().apply()
-
-        // mengarahkan pada login/ mainactivity
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-        startActivity(intent)
     }
 }

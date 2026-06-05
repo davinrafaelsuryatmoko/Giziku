@@ -3,30 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
-
+    app:startDestination="@id/nav_login">
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.aplikasigiziku.ProfileFragment"
-        android:label="Profil"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/nav_login"
+        android:name="com.example.aplikasigiziku.LoginFragment"
+        android:label="Login" />
+
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="com.example.aplikasigiziku.RegisterFragment"
+        android:label="Register" />
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.aplikasigiziku.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/nav_kalkulator"
         android:name="com.example.aplikasigiziku.KalgiziFragment"
         android:label="Kal_Gizi"
         tools:layout="@layout/fragment_kal_gizi" />
+
     <fragment
         android:id="@+id/nav_vitamin"
         android:name="com.example.aplikasigiziku.VitaminFragment"
         android:label="Vitamin"
         tools:layout="@layout/fragment_vitamin" />
+
     <fragment
         android:id="@+id/nav_tips"
         android:name="com.example.aplikasigiziku.TipsFragment"
@@ -39,5 +45,19 @@
         android:label="Tambah Makanan"
         tools:layout="@layout/fragment_tambah_makanan" />
 
+    <fragment
+        android:id="@+id/nav_profil"
+        android:name="com.example.aplikasigiziku.ProfilFragment"
+        android:label="Profil" />
+
+    <fragment
+        android:id="@+id/nav_buat_post"
+        android:name="com.example.aplikasigiziku.BuatPostFragment"
+        android:label="Buat Post" />
+
+    <fragment
+        android:id="@+id/nav_komentar"
+        android:name="com.example.aplikasigiziku.KomentarFragment"
+        android:label="Komentar" />
 
 </navigation>
